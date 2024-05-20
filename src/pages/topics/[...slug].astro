@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import PostPreview from '../../components/PostPreview.astro'
+import PageWrapper from '../../components/PageWrapper.astro'
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts')
+  const tags = [...new Set(posts.map(post => post.data.tags).flat())].sort()
+  return tags.map(tag => ({
+    params: { slug: tag },
+    props: { tag, posts },
+  }))
+}
+
+const { tag, posts: data } = Astro.props
+const posts = data.filter(post => post.data.tags.includes(tag))
+---
+
+<BaseLayout pageTitle="Blog">
+  <PageWrapper>
+    <h1 class="capitalize">{tag}</h1>
+
+    <section class="flex flex-col gap-y-12 mt-12">
+      {posts.map(post => <PostPreview post={post} />)}
+    </section>
+  </PageWrapper>
+</BaseLayout>

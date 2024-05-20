@@ -1,16 +1,48 @@
 ---
+import { getCollection } from 'astro:content'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import '../styles/global.css'
+import PostPreview from '../components/PostPreview.astro'
+import PageWrapper from '../components/PageWrapper.astro'
 
+const pageTitle = 'Home page'
+
+const data = await getCollection('posts')
+const posts = data.filter(post => !post.data.draft).sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+const tags = [...new Set(posts.map(post => post.data.tags).flat())].sort()
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body>
-    <h1>Astro</h1>
-  </body>
-</html>
+<BaseLayout pageTitle={pageTitle}>
+  <PageWrapper>
+    <div class="flex flex-col gap-y-10">
+      <section class="max-w-2xl w-full">
+        <h3 class="font-bold uppercase font-sans text-sm text-gray-400">Featured</h3>
+        <a href={`/lara-blog/posts/${posts[0].slug}`} class="group cursor-pointer hover:no-underline">
+          <h1 class="group-hover:underline mt-1 line-clamp-2">
+            {posts[0].data.title}
+          </h1>
+          <p class="text-gray-800 line-clamp-3">{posts[0].data.description}</p>
+          <div class="text-sm text-zinc-500">{posts[0].data.date.toDateString()}</div>
+        </a>
+      </section>
+      <section class="max-w-2xl w-full">
+        <h3 class="font-bold uppercase font-sans text-sm text-gray-400">Topics</h3>
+        <div class="flex flex-wrap gap-x-4 uppercase font-sans font-medium text-blue-900">
+          {
+            tags.map(tag => (
+              <a href={`/lara-blog/topics/${tag}`}>
+                <div>#{tag}</div>
+              </a>
+            ))
+          }
+        </div>
+      </section>
+      <section class="max-w-2xl w-full">
+        <h3 class="uppercase font-bold font-sans text-sm text-gray-400">Recent Posts</h3>
+        <div class="flex flex-col gap-y-12">
+          {posts.map(post => <PostPreview post={post} />)}
+        </div>
+      </section>
+    </div>
+  </PageWrapper>
+</BaseLayout>
