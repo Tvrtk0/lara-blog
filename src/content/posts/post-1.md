@@ -7,6 +7,8 @@ tags: ["advice", "habits", "media"]
 draft: false
 ---
 
+![Image name](./images/image1.jpg)
+
 ## Armis sis poteremur rostrum mersit Sardibus contigit
 
 Lorem markdownum minor _nudorum vides_. Lenta sit Thybridis possidet ponar
@@ -25,6 +27,8 @@ virtus horrenda, non.
 ## Cura maior
 
 ### Desuetas uritur turbamve interdum
+
+![Image name](./images/image1.jpg)
 
 Canescere pervia. Contemptoremque natura ex **insignia missum** Ericthonio
 **pendentibus**, sine, ille exurunt. Traiecit cruciata contento corpus commenta
