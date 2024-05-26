@@ -5,7 +5,7 @@ import PostPreview from '../../components/PostPreview.astro'
 import PageWrapper from '../../components/PageWrapper.astro'
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts')
+  const posts = await getCollection('lara-blog-content')
   const tags = [...new Set(posts.map(post => post.data.tags).flat())].sort()
   return tags.map(tag => ({
     params: { slug: tag },

@@ -12,5 +12,5 @@ const postsCollection = defineCollection({
 })
 
 export const collections = {
-  posts: postsCollection,
+  'lara-blog-content': postsCollection,
 }

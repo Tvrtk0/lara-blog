@@ -7,7 +7,7 @@ import PageWrapper from '../components/PageWrapper.astro'
 
 const pageTitle = 'Home page'
 
-const data = await getCollection('posts')
+const data = await getCollection('lara-blog-content')
 const posts = data.filter(post => !post.data.draft).sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
 const tags = [...new Set(posts.map(post => post.data.tags).flat())].sort()
 ---

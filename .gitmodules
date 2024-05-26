@@ -1,0 +1,3 @@
+[submodule "src/content/lara-blog-content"]
+	path = src/content/lara-blog-content
+	url = https://github.com/Tvrtk0/lara-blog-content.git
